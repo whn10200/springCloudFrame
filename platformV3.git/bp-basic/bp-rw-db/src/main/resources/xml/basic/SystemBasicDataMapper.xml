@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tuodao.bp.db.mapper.basic.SystemBasicDataMapper" >
+  <resultMap id="BaseResultMap" type="com.tuodao.bp.db.model.basic.SystemBasicData" >
+    <id column="ID" property="id" jdbcType="BIGINT" />
+    <result column="MODULE" property="module" jdbcType="VARCHAR" />
+    <result column="CONF_KEY" property="confKey" jdbcType="VARCHAR" />
+    <result column="CONF_VALUE" property="confValue" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION" property="description" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    ID, MODULE, CONF_KEY, CONF_VALUE, DESCRIPTION
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.tuodao.bp.db.model.basic.SystemBasicDataExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from system_basic_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from system_basic_data
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from system_basic_data
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tuodao.bp.db.model.basic.SystemBasicDataExample" >
+    delete from system_basic_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tuodao.bp.db.model.basic.SystemBasicData" >
+    insert into system_basic_data (ID, MODULE, CONF_KEY, 
+      CONF_VALUE, DESCRIPTION)
+    values (#{id,jdbcType=BIGINT}, #{module,jdbcType=VARCHAR}, #{confKey,jdbcType=VARCHAR}, 
+      #{confValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tuodao.bp.db.model.basic.SystemBasicData" >
+    insert into system_basic_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="module != null" >
+        MODULE,
+      </if>
+      <if test="confKey != null" >
+        CONF_KEY,
+      </if>
+      <if test="confValue != null" >
+        CONF_VALUE,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="module != null" >
+        #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="confKey != null" >
+        #{confKey,jdbcType=VARCHAR},
+      </if>
+      <if test="confValue != null" >
+        #{confValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tuodao.bp.db.model.basic.SystemBasicDataExample" resultType="java.lang.Integer" >
+    select count(*) from system_basic_data
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update system_basic_data
+    <set >
+      <if test="record.id != null" >
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.module != null" >
+        MODULE = #{record.module,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confKey != null" >
+        CONF_KEY = #{record.confKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.confValue != null" >
+        CONF_VALUE = #{record.confValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        DESCRIPTION = #{record.description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update system_basic_data
+    set ID = #{record.id,jdbcType=BIGINT},
+      MODULE = #{record.module,jdbcType=VARCHAR},
+      CONF_KEY = #{record.confKey,jdbcType=VARCHAR},
+      CONF_VALUE = #{record.confValue,jdbcType=VARCHAR},
+      DESCRIPTION = #{record.description,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tuodao.bp.db.model.basic.SystemBasicData" >
+    update system_basic_data
+    <set >
+      <if test="module != null" >
+        MODULE = #{module,jdbcType=VARCHAR},
+      </if>
+      <if test="confKey != null" >
+        CONF_KEY = #{confKey,jdbcType=VARCHAR},
+      </if>
+      <if test="confValue != null" >
+        CONF_VALUE = #{confValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tuodao.bp.db.model.basic.SystemBasicData" >
+    update system_basic_data
+    set MODULE = #{module,jdbcType=VARCHAR},
+      CONF_KEY = #{confKey,jdbcType=VARCHAR},
+      CONF_VALUE = #{confValue,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

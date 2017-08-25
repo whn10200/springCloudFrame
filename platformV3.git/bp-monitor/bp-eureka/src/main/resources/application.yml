@@ -1,0 +1,77 @@
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+    evictionIntervalTimerInMs: 3
+  client:
+    registerWithEureka: true
+    fetchRegistry: false
+    registryFetchIntervalSeconds: 3
+    instanceInfoReplicationIntervalSeconds: 3
+    initialInstanceInfoReplicationIntervalSeconds: 4
+  server:
+    evictionIntervalTimerInMs: 3000
+---
+spring:
+  profiles: node1
+server:
+  port: 10001
+
+logging:
+  config: classpath:logback-spring.xml
+  path: D:/logs/bp/eureka/server/node1
+  level:
+        com.tuodao.bp.eureka: info
+
+# eureka.client.registerWithEureka 不注册自己到Eureka服务中心
+# eureka.client.fetchRegistry 从Eureka服务中心获取注册信息
+# eureka.client.serviceUrl.defaultZone 设置Eureka服务中心地址
+eureka:
+  instance:
+    hostname: node1
+    instanceId: ${server.port}[node1]
+  client:
+    serviceUrl:
+      defaultZone: http://node2:10002/eureka/,http://node3:10003/eureka/
+
+---
+spring:
+  profiles: node2
+server:
+  port: 10002
+
+logging:
+  config: classpath:logback-spring.xml
+  path: D:/logs/bp/eureka/server/node2
+  level:
+        com.tuodao.bp.eureka: info
+
+eureka:
+  instance:
+    hostname: node2
+    instanceId: ${server.port}[node2]
+  client:
+    serviceUrl:
+      defaultZone: http://node1:10001/eureka/,http://node3:10003/eureka/
+      
+---
+spring:
+  profiles: node3
+server:
+  port: 10003
+
+logging:
+  config: classpath:logback-spring.xml
+  path: D:/logs/bp/eureka/server/node3
+  level:
+        com.tuodao.bp.eureka: info
+
+eureka:
+  instance:
+    hostname: node3
+    instanceId: ${server.port}[node3]
+  client:
+    serviceUrl:
+      defaultZone: http://node1:10001/eureka/,http://node2:10002/eureka/
+
+    

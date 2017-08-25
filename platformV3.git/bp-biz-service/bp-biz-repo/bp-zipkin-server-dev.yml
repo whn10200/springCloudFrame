@@ -1,0 +1,20 @@
+##eureka发现服务
+eureka:
+  instance:
+    instanceId: ${server.port}[zipkin-server]
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    registryFetchIntervalSeconds: 3
+    instanceInfoReplicationIntervalSeconds: 3
+    initialInstanceInfoReplicationIntervalSeconds: 4
+    serviceUrl:
+      defaultZone: http://node1:10001/eureka/,http://node2:10002/eureka/,http://node3:10003/eureka/
+  server:
+    evictionIntervalTimerInMs: 3000
+    
+spring:
+  sleuth:
+    enabled: true
+    sampler:
+      percentage: 1

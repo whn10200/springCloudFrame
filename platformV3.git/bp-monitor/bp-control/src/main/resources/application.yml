@@ -1,0 +1,21 @@
+spring:
+  mail:
+    host: smtp.exmail.qq.com
+    username: jishujiankong@51tuodao.com
+    password: Tuodao123
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+            required: false
+  boot:
+    admin:
+      notify:
+        mail:
+          enabled: false
+          ignore-changes: UNKNOWN:SERVICE
+          from: jishujiankong@51tuodao.com 
+          to: hechuan@51tuodao.com
+          cc: mifu@51tuodao.com,liuwenkai@51tuodao.com   

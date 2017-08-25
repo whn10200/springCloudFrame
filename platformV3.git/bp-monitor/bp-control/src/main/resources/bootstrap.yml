@@ -1,0 +1,37 @@
+##端口
+server:
+  port: 10005
+
+##应用名  
+spring:
+  application:
+    name: bp-admin-server
+  cloud:
+    config:
+      profile: dev
+      label: master
+      uri: http://localhost:10006/  
+
+##日志
+logging:
+  config: classpath:logback-spring.xml
+  path: F:/log/bp/adminserver/
+  level:
+        com.tuodao.bp.control: info
+        
+        
+        
+##eureka发现服务
+eureka:
+  instance:
+    instanceId: ${server.port}[admin-server]
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    registryFetchIntervalSeconds: 3
+    instanceInfoReplicationIntervalSeconds: 3
+    initialInstanceInfoReplicationIntervalSeconds: 4
+    serviceUrl:
+      defaultZone: http://node1:10001/eureka/,http://node2:10002/eureka/,http://node3:10003/eureka/
+  server:
+    evictionIntervalTimerInMs: 3000        

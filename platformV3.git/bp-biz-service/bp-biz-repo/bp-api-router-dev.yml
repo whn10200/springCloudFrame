@@ -1,0 +1,122 @@
+##eureka发现服务
+eureka:
+  instance:
+    instanceId: ${server.port}[api-router]
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 3
+  client:
+    registryFetchIntervalSeconds: 3
+    instanceInfoReplicationIntervalSeconds: 3
+    initialInstanceInfoReplicationIntervalSeconds: 4
+    serviceUrl:
+      defaultZone: http://node1:10001/eureka/,http://node2:10002/eureka/,http://node3:10003/eureka/
+  server:
+    evictionIntervalTimerInMs: 3000
+    
+    
+spring:
+  ##redis 缓存    
+  redis:
+    host: 72.127.2.158
+    port: 6379
+    password: tuodao!@#321
+    database: 0
+    timeout: 60000
+    pool:
+      max-wait: 50
+      
+  ##zipkin
+  zipkin:
+    base-url: http://localhost:10004
+  sleuth:
+    enabled: false
+    sampler:
+      percentage: 1
+  
+  ##bootAdmin
+  boot:
+    admin:
+      autoRegistration: false
+      url: http://localhost:10005
+ 
+  ##重试    
+  cloud:
+    loadbalancer:
+      retry:
+        enabled: true
+
+#hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds：断路器的超时时间需要大于ribbon的超时时间，不然不会触发重试。
+#hello-service.ribbon.ConnectTimeout：请求连接的超时时间
+#hello-service.ribbon.ReadTimeout：请求处理的超时时间
+#hello-service.ribbon.OkToRetryOnAllOperations：对所有操作请求都进行重试
+#hello-service.ribbon.MaxAutoRetriesNextServer：切换实例的重试次数
+#hello-service.ribbon.MaxAutoRetries：对当前实例的重试次数
+##熔断超时时间（毫秒）断路器的超时时间需要大于ribbon的超时时间，不然不会触发重试。
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+##管理安全 
+management:
+  security:
+    enabled: false
+
+##zuul配置
+zuul:
+  routes:
+    api-facade:
+      path: /api/router/**
+      strPrefix: true
+      url: http://localhost:10007/router
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 10000        
+
+
+##数据库
+hikari:
+  type: com.zaxxer.hikari.HikariDataSource
+  master:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave1:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave2:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000      
+
+##mapper映射路径
+mybatis:
+  mapper-locations: classpath*:xml/**/*Mapper.xml    

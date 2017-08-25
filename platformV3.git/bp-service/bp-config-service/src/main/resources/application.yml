@@ -1,0 +1,76 @@
+# git管理配置
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://gitlab.51tuodao.com/platform/platformV3.git
+          searchPaths: bp-biz-service/bp-biz-repo
+          username: hechuan
+          password: hejunling
+ 
+##rabbit mq,消息队列          
+  rabbitmq:
+    host: 192.168.0.226
+    port: 5673
+    username: admin
+    password: admin
+
+##redis 缓存    
+  redis:
+    host: 72.127.2.158
+    port: 6379
+    password: tuodao!@#321
+    database: 0
+    timeout: 60000
+    pool:
+      max-wait: 50
+
+##数据库
+hikari:
+  type: com.zaxxer.hikari.HikariDataSource
+  master:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave1:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000
+  slave2:
+    jdbc-url: jdbc:mysql://72.127.2.158:3306/finance?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: tuodao_mysql
+    hikari:
+      connection-test-query: SELECT 1
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      validation-timeout: 60000
+      idle-timeout: 60000      
+
+##mapper映射路径
+mybatis:
+  mapper-locations: classpath*:xml/**/*Mapper.xml
+
+
+management:
+  security:
+    enabled: false

@@ -1,0 +1,17 @@
+server:
+  port: 80
+  
+spring:
+  application:
+    name: bp-api-router
+  cloud:
+    config:
+      profile: dev
+      label: master
+      uri: http://localhost:10006/  
+    
+logging:
+  config: classpath:logback-spring.xml
+  path: F:/log/bp/apirouter/
+  level:
+        com.tuodao.bp.api.router: info

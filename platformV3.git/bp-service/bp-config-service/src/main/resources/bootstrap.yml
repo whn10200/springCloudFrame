@@ -1,0 +1,12 @@
+server:
+  port: 10006
+  
+spring:
+  application:
+    name: bp-config-server
+    
+logging:
+  config: classpath:logback-spring.xml
+  path: F:/log/bp/configserver/
+  level:
+        com.tuodao.bp.config: info

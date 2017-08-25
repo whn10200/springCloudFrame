@@ -1,0 +1,3 @@
+# autoconfiguration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.tuodao.bp.activemq.ActiveMQConfig
